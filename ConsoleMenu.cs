@@ -53,11 +53,12 @@ namespace morskoyBoy
         public static void startOfGame(ConsoleGame game, byte isFirstGame) {
             Console.Clear();
             game.printFieldAndFlotilia(game.GamerField, game.GamerFlotilia, "ВАШЕ ПОЛЕ", "ВАША ФЛОТИЛИЯ");
-            if (isFirstGame == 0)
+            if (isFirstGame == 0) {
                 Console.WriteLine("\n\tДобро пожаловать в классическую игру \"Морской бой\"!");
+                Console.WriteLine("\tНа данном поле будет располагаться Ваша флотилия.");
+            }
             else 
-                Console.WriteLine("\n\tСыграем еще один раунд ☺");
-            Console.WriteLine("\tНа данном поле будет располагаться Ваша флотилия.");
+                Console.WriteLine("\n\tСыграем еще один раунд;)");
             Console.WriteLine("\tЕсли хотите заполнить поле сами, нажмите \"1\"");
             Console.WriteLine("\tДля автоматического рандомного заполнения поля, нажмите \"2\"");
             byte options;

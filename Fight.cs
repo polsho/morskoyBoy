@@ -11,9 +11,6 @@ namespace morskoyBoy
             public cellStatus strokeResult;
             public bool areNearbyCellsChecked {set; get;}  // добавить проверку в конструктор
 
-            static public bool isTargetSunk;
-            static public bool isTargetFound;
-
             public int[]? HittedBoat { get; }
 
             public Stroke() {
@@ -64,7 +61,8 @@ namespace morskoyBoy
         public Stroke getPrevStroke(List<Stroke> strokes) {
             return strokes[strokes.Count-1];
         }
-
+        public bool isTargetSunk;
+        public bool isTargetFound;
 
         public void StrikeComputer() {
             int num, letter;
@@ -173,28 +171,34 @@ namespace morskoyBoy
                 } 
             }
         }
-
+        
+        public List<strikeStrategies.strikeIndices>[] listOfSets = new List<strikeStrategies.strikeIndices>[2] {
+                                                                   strikeStrategies.getlinesSetOfStrokes(), 
+                                                                   strikeStrategies.getpointsSetOfStrokes()};
+        public int currentPosition;
+        public List<strikeStrategies.strikeIndices>? currentSetOfStrokes;
+        
         public void StrikeGamerDiagonally() {
-            if (strikeStrategies.currentSetOfStrokes == null && compStrokes.Count > 1) {
+            if (currentSetOfStrokes == null && compStrokes.Count > 1) {
                 StrikeGamerRandomly();
             }
             else {
                 if (compStrokes.Count == 1) {
-                    int option = MyExtensions.rand.Next(0,strikeStrategies.listOfSets.Length);
-                    strikeStrategies.currentSetOfStrokes = strikeStrategies.listOfSets[option];
+                    int option = MyExtensions.rand.Next(0,listOfSets.Length);
+                    currentSetOfStrokes = listOfSets[option];
 
                 }
-                if (strikeStrategies.currentSetOfStrokes != null) {
-                    foreach (var (value, i) in strikeStrategies.currentSetOfStrokes.Select((value, i) => ( value, i )).Where(v => v.i >= strikeStrategies.currentPosition)) {
+                if (currentSetOfStrokes != null) {
+                    foreach (var (value, i) in currentSetOfStrokes.Select((value, i) => ( value, i )).Where(v => v.i >= currentPosition)) {
                         if (StrikeGamer(value.i, value.j)) {
-                            strikeStrategies.currentPosition = i+1;
+                            currentPosition = i+1;
                             return;
                         } 
                     }  
-                    strikeStrategies.currentSetOfStrokes = null;  
+                    currentSetOfStrokes = null;  
                     StrikeGamerRandomly(); 
                 } else {
-                    strikeStrategies.currentSetOfStrokes = null;
+                    currentSetOfStrokes = null;
                     StrikeGamerRandomly();
                 }                        
             }
@@ -202,21 +206,21 @@ namespace morskoyBoy
 
         public void StrikeGamer() {
             if (compStrokes.Last().strokeResult == cellStatus.Hitted) {
-                Stroke.isTargetFound = true;
+                isTargetFound = true;
                 int[] boat = GamerField.getSettledBoat(compStrokes.Last().num, compStrokes.Last().letter);
                 if (GamerFlotilia.Flot[boat[0]][boat[1]].Status == boatStatus.Sunk)
                 {
-                    Stroke.isTargetSunk = true;
-                    Stroke.isTargetFound = false;
+                    isTargetSunk = true;
+                    isTargetFound = false;
                     StrikeGamerDiagonally();
                 }
                 else {
-                    Stroke.isTargetSunk = false;
+                    isTargetSunk = false;
                     StrikeGamerNearby();
                 }   
             }
             else if (compStrokes.Last().strokeResult == cellStatus.Missed) {
-                if (Stroke.isTargetFound && !Stroke.isTargetSunk) {
+                if (isTargetFound && !isTargetSunk) {
                     StrikeGamerNearby();
                 }
                 else StrikeGamerDiagonally();
@@ -242,7 +246,7 @@ namespace morskoyBoy
             if (GamerFlotilia.areAllBoatsSunk() && !ComputerFlotilia.areAllBoatsSunk()) {
                 MyExtensions.WriteInRed("\t\t\tВы проиграли"); 
                 Console.WriteLine("\n\t\t" + "Чтобы расскрыть поле противника, нажмите \"1\"");
-                Console.WriteLine("\t\t" + "Чтобы продолжить, нажмите \"2\" \n");
+                Console.WriteLine("\t\t" + "Чтобы продолжить, нажмите \"2\"");
                 byte options;
                 Console.Write("\t\t");
                 while((!Byte.TryParse(Console.ReadLine(), out options)) || (options != 1 && options != 2)) { 
@@ -250,7 +254,8 @@ namespace morskoyBoy
                     Console.Write("\t\t");
                 }     
                 if (options == 1) {
-                    ComputerField.PrintField(16,26,ComputerFlotilia, false);
+                    Console.WriteLine();
+                    ComputerField.PrintField(16,27,ComputerFlotilia, false);
                     Console.WriteLine();
                 } 
                 else return;

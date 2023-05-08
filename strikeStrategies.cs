@@ -1,16 +1,13 @@
 namespace morskoyBoy
 {
-    
     public partial class ConsoleGame {
-        static public class strikeStrategies {
+        public class strikeStrategies {
 
             public struct strikeIndices { 
                 public int i; 
                 public int j; 
                 public strikeIndices(int i, int j) { this.i = i; this.j = j; }
             }
-            public static int currentPosition;
-
             static List<strikeIndices> setOfStrokes = fillSetOfStrokes();
 
             static public List<strikeIndices> fillSetOfStrokes() {
@@ -22,9 +19,6 @@ namespace morskoyBoy
                 }
                 return fullSetOfStrokes;
             }
-
-            public static List<strikeIndices>? currentSetOfStrokes;
-            public static List<strikeIndices>[] listOfSets = new List<strikeIndices>[2] {getlinesSetOfStrokes(), getpointsSetOfStrokes()};
 
             static public List<strikeIndices> getlinesSetOfStrokes() {
                 List<strikeIndices> list = new List<strikeIndices>();
