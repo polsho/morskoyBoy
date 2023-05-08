@@ -181,7 +181,7 @@ namespace morskoyBoy{
             MyExtensions.origCol = 0;
             MyExtensions.origRow = 0; 
             MyExtensions.WriteAt("ПОЛЕ ПРОТИВНИКА", 57, 1);
-            ComputerField.PrintField(50, 3, ComputerFlotilia, false);
+            ComputerField.PrintField(50, 3, ComputerFlotilia, true);
             MyExtensions.origCol = 0;
             MyExtensions.origRow = 0; 
             ComputerFlotilia.printFlotilia(80, 5, boatStatus.Sunk, false, getPrevStroke(gamerStrokes).HittedBoat);
@@ -229,12 +229,14 @@ namespace morskoyBoy{
                     MyExtensions.WriteAt(rowsnames[i-1], 8, i+topcursor); 
                     MyExtensions.WriteAt(Convert.ToString(gamerData[i-1]), 47, i+topcursor);
                     MyExtensions.WriteAt(Convert.ToString(compData[i-1]), 60, i+topcursor);
+                    if (i == rowsnames.Count()-2)   
+                        MyExtensions.WriteAt(MyExtensions.writeHorizLine(64), 8, 7);
                 } 
                 else  {
-                    MyExtensions.WriteAt(rowsnames[i-1], 8, i+topcursor);
-                    MyExtensions.WriteAt(Convert.ToString(compData[i-1]), 50, i+topcursor);
+                    MyExtensions.WriteAt(rowsnames[i-1], 8, i+1+topcursor);
+                    MyExtensions.WriteAt(Convert.ToString(compData[i-1]), 50, i+1+topcursor);
                 }  
-                MyExtensions.WriteAt(MyExtensions.writeHorizLine(64), 8, 9);
+                MyExtensions.WriteAt(MyExtensions.writeHorizLine(64), 8, 10);
             }
         }
     }
