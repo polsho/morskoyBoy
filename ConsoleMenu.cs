@@ -5,78 +5,58 @@ namespace morskoyBoy
         public static void showTitle(string element) {
             Console.Clear();
             MyExtensions.origRow = 2; 
-            MyExtensions.origCol = 10; 
+            MyExtensions.origCol = 15; 
             int letterHeight = 8;
             int letterSpacing = 4;
-
-
-            for (int i = 0; i < letterHeight; i++) {
-                MyExtensions.WriteAt(element, 0, i);
-                if (i <= letterHeight/2) {
-                    MyExtensions.WriteAt(element, i, i);
-                    MyExtensions.WriteAt(element, letterHeight - i, i);
-                }
-                MyExtensions.WriteAt(element, letterHeight, i);
-            }
+            Console.ForegroundColor = ConsoleColor.White;
+            MyExtensions.writeLetterM(letterHeight, element);
 
             MyExtensions.origCol += letterHeight + letterSpacing;
-            for (int i = 0; i < letterHeight; i++) {
-                if (i == 0 || i == 7) {
-                    MyExtensions.WriteAt(element, 3, i);
-                    MyExtensions.WriteAt(element, 5, i);
-                }
-                if (i == 1 || i == 6) {
-                    MyExtensions.WriteAt(element, 1, i);
-                    MyExtensions.WriteAt(element, 7, i);
-                }
-                if (i >= letterHeight/4 && i < letterHeight/4 + letterHeight/2) {
-                    MyExtensions.WriteAt(element, 0, i);
-                    MyExtensions.WriteAt(element, letterHeight, i);
-                }
-            }
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            MyExtensions.writeLetterO(letterHeight, element);
+            Console.ForegroundColor = ConsoleColor.White;
 
             MyExtensions.origCol += letterHeight + letterSpacing;  
-            for (int i = 0; i < letterHeight; i++) {
-                if (i == 0 || i == 4) {
-                    for (int j = 0; j < letterHeight ; j+=2)
-                        MyExtensions.WriteAt(element, j, i);
-                }
-                if (i == 1 || i == 3) {
-                    MyExtensions.WriteAt(element, 0, i);
-                    MyExtensions.WriteAt(element, 7, i);
-                }
-                if (i == 2) {
-                    MyExtensions.WriteAt(element, 0, i);
-                    MyExtensions.WriteAt(element, 8, i);
-                }
-                else MyExtensions.WriteAt(element, 0, i);
-            }
+            MyExtensions.writeLetterR(letterHeight, element);
 
             MyExtensions.origCol += letterHeight + letterSpacing;
-            for (int i = 0; i < letterHeight; i++) {
-                if (i == 0 || i == 7) {
-                    MyExtensions.WriteAt(element, 3, i);
-                    MyExtensions.WriteAt(element, 5, i);
-                }
-                if (i == 1 || i == 6) {
-                    MyExtensions.WriteAt(element, 1, i);
-                    MyExtensions.WriteAt(element, 7, i);
-                }
-                if (i >= letterHeight/4 && i < letterHeight/4 + letterHeight/2) {
-                    MyExtensions.WriteAt(element, 0, i);
-                    //MyExtensions.WriteAt(element, letterHeight, i);
-                }
-            }
+            MyExtensions.writeLetterS(letterHeight, element);
 
-            Console.WriteLine("\n\n\tНажмите любую клавишу для продолжения... ");
-            Console.Write("\t");
+            MyExtensions.origCol += letterHeight + letterSpacing;  
+            MyExtensions.writeLetterK(letterHeight, element);
+
+            MyExtensions.origCol += letterHeight + letterSpacing;
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            MyExtensions.writeLetterO(letterHeight, element);
+            Console.ForegroundColor = ConsoleColor.White;
+
+            MyExtensions.origCol += letterHeight + letterSpacing;
+            MyExtensions.writeLetterY(letterHeight, element);
+
+            MyExtensions.origRow = 12; 
+            MyExtensions.origCol = 39; 
+
+            MyExtensions.writeLetterB(letterHeight, element);
+            
+            MyExtensions.origCol += letterHeight + letterSpacing;
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            MyExtensions.writeLetterO(letterHeight, element);
+            Console.ForegroundColor = ConsoleColor.White;
+
+            MyExtensions.origCol += letterHeight + letterSpacing;
+            MyExtensions.writeLetterY(letterHeight, element);
+            
+            Console.Write("\n\n\n\n\tНажмите любую клавишу для продолжения... ");
             Console.ReadKey();    
         }
 
-        public static void startOfGame(ConsoleGame game) {
+        public static void startOfGame(ConsoleGame game, byte isFirstGame) {
             Console.Clear();
             game.printFieldAndFlotilia(game.GamerField, game.GamerFlotilia, "ВАШЕ ПОЛЕ", "ВАША ФЛОТИЛИЯ");
-            Console.WriteLine("\n\tДобро пожаловать в классическую игру \"Морской бой\"!");
+            if (isFirstGame == 0)
+                Console.WriteLine("\n\tДобро пожаловать в классическую игру \"Морской бой\"!");
+            else 
+                Console.WriteLine("\n\tСыграем еще один раунд ☺");
             Console.WriteLine("\tНа данном поле будет располагаться Ваша флотилия.");
             Console.WriteLine("\tЕсли хотите заполнить поле сами, нажмите \"1\"");
             Console.WriteLine("\tДля автоматического рандомного заполнения поля, нажмите \"2\"");
@@ -100,7 +80,7 @@ namespace morskoyBoy
                 }
                 break;
                 default:
-                startOfGame(game);
+                startOfGame(game, isFirstGame);
                 break;
             }
 

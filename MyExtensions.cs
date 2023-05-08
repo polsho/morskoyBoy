@@ -68,6 +68,106 @@ static class MyExtensions {
         return line;
     }
 
+    public static void writeLetterO (int letterHeight, string element) {
+        for (int i = 0; i < letterHeight; i++) {
+                if (i == 0 || i == 7) {
+                    WriteAt(element, 3, i);
+                    WriteAt(element, 5, i);
+                }
+                if (i == 1 || i == 6) {
+                    WriteAt(element, 1, i);
+                    WriteAt(element, 7, i);
+                }
+                if (i >= letterHeight/4 && i < letterHeight/4 + letterHeight/2) {
+                    WriteAt(element, 0, i);
+                    WriteAt(element, letterHeight, i);
+                }
+            }
+    }
+    public static void writeLetterM (int letterHeight, string element) {
+        for (int i = 0; i < letterHeight; i++) {
+            MyExtensions.WriteAt(element, 0, i);
+            if (i <= letterHeight/2) {
+                MyExtensions.WriteAt(element, i, i);
+                MyExtensions.WriteAt(element, letterHeight - i, i);
+            }
+            MyExtensions.WriteAt(element, letterHeight, i);
+        }
+    }   
+    public static void writeLetterR (int letterHeight, string element) {
+        for (int i = 0; i < letterHeight; i++) {
+                if (i == 0 || i == 4) {
+                    for (int j = 0; j < letterHeight ; j+=2)
+                        MyExtensions.WriteAt(element, j, i);
+                }
+                if (i == 1 || i == 3) {
+                    MyExtensions.WriteAt(element, 0, i);
+                    MyExtensions.WriteAt(element, 7, i);
+                }
+                if (i == 2) {
+                    MyExtensions.WriteAt(element, 0, i);
+                    MyExtensions.WriteAt(element, 8, i);
+                }
+                else MyExtensions.WriteAt(element, 0, i);
+            }
+    }
+    public static void writeLetterS (int letterHeight, string element) {
+        for (int i = 0; i < letterHeight; i++) {
+                if (i == 0 || i == 7) {
+                    MyExtensions.WriteAt(element, 3, i);
+                    MyExtensions.WriteAt(element, 5, i);
+                }
+                if (i == 1 || i == 6) {
+                    MyExtensions.WriteAt(element, 1, i);
+                    MyExtensions.WriteAt(element, 7, i);
+                }
+                if (i >= letterHeight/4 && i < letterHeight/4 + letterHeight/2) {
+                    MyExtensions.WriteAt(element, 0, i);
+                }
+            }
+    }
+    public static void writeLetterK (int letterHeight, string element) {
+        for (int i = 0; i < letterHeight; i++) {
+                MyExtensions.WriteAt(element, 0, i);
+                if (i <= letterHeight/2-1)
+                    MyExtensions.WriteAt(element, letterHeight-1-i, i);
+                if (i == letterHeight/2-1)
+                    MyExtensions.WriteAt(element, 2, i);
+                if (i >= letterHeight/2)
+                    MyExtensions.WriteAt(element, i+1, i);
+            }
+    }
+    public static void writeLetterY (int letterHeight, string element) {
+        MyExtensions.WriteAt(element, letterHeight/2, -1);
+            MyExtensions.WriteAt(element, letterHeight/2+1, -1);
+            for (int i = 0; i < letterHeight; i++) {
+                MyExtensions.WriteAt(element, 0, i);
+                MyExtensions.WriteAt(element, letterHeight - i, i);
+                MyExtensions.WriteAt(element, letterHeight, i);
+            }
+    }
+    public static void writeLetterB (int letterHeight, string element) {
+        for (int i = 0; i < letterHeight; i++) {
+                if (i == 0) {
+                    for (int j = 0; j <= letterHeight ; j+=2)
+                        MyExtensions.WriteAt(element, j, i);
+                }
+                if (i == letterHeight-1 || i == 3) {
+                    for (int j = 0; j < letterHeight ; j+=2)
+                        MyExtensions.WriteAt(element, j, i);
+                }
+                if (i == 4 || i == 6) {
+                    MyExtensions.WriteAt(element, 0, i);
+                    MyExtensions.WriteAt(element, 7, i);
+                }
+                if (i == 5) {
+                    MyExtensions.WriteAt(element, 0, i);
+                    MyExtensions.WriteAt(element, 8, i);
+                }
+                else MyExtensions.WriteAt(element, 0, i);
+            }
+    }
+
 }
 
         
