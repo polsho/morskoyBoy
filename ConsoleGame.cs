@@ -112,7 +112,6 @@ namespace morskoyBoy{
         public bool putAllGamerBoats(Field field, out string message) {
             Console.Clear();
             printFieldAndFlotilia(GamerField, GamerFlotilia, "ВАШЕ ПОЛЕ", "ВАША ФЛОТИЛИЯ");
-            //message ="\tУстановите Ваши корабли на поле боя так, чтобы они не касались друг друга ни сторонами, ни углами.";
             message = "";
             Console.WriteLine("\n\tУстановите Ваши корабли на поле боя так, чтобы они не касались друг друга ни сторонами, ни углами.");
             Console.WriteLine("\tСначала определите координаты первой ячейки, от которой корабль будет располагаться либо вправо, либо вниз.");
@@ -146,8 +145,9 @@ namespace morskoyBoy{
         }
 
         public bool putAllComputerBoats() {
-            int settlementOption = MyExtensions.rand.Next(0,3);
-            switch (settlementOption) {
+            int settlementOption = MyExtensions.rand.Next(3);
+            try {
+                switch (settlementOption) {
                 case 0:
                     return ComputerFlotilia.putAllBoatsRandomly(ComputerField);
                 case 1:
@@ -157,6 +157,12 @@ namespace morskoyBoy{
                 default:
                     return false;
             }
+            } catch (StackOverflowException) {
+                ComputerFlotilia.unputAllBoats();
+                ComputerField.clearField();
+                return ComputerFlotilia.putAllBoatsRandomly(ComputerField);
+            }
+            
         }
 
         public void printFieldAndFlotilia(Field field, Flotilia flotilia, string title1, string title2) {

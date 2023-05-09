@@ -43,11 +43,6 @@ namespace morskoyBoy
             OccupiedCells = new int[size,2];
             Name = "Корабль";
         }
-
-        private Boat (int size, boatPosition position):this(size) {
-            this.pos = position;
-        }
-
     
         public bool SetPosition(boatPosition p) {
             pos.Direction = p.Direction;
@@ -80,7 +75,7 @@ namespace morskoyBoy
                     }
                 }
             }
-            catch(ArgumentOutOfRangeException) { }  
+            catch(ArgumentOutOfRangeException e) { Console.WriteLine(e.Message); }  
         }
 
         public void setSettledBoat(Field field, int boatType, int boatNumber) {
@@ -116,7 +111,7 @@ namespace morskoyBoy
             EncloseBoat(field);
             return true;
         }
-        public virtual bool PutBoat(Field field, boatPosition p, ref int count, out string message) {
+        public bool PutBoat(Field field, boatPosition p, ref int count, out string message) {
             if (count > 0) {
                 if (SetPosition(p)) {
                     if (PutBoat(field)) {
@@ -135,10 +130,20 @@ namespace morskoyBoy
                 }
             }
             else {
-                message = "\tКоличество кораблей данного типа превышано!";
+                message = "Количество кораблей данного типа превышано!";
                 return false;
-            }
-            
+            } 
+        }
+
+        public bool UnputBoat() {
+            if (Status == boatStatus.Intact) {
+                for (int i = 0; i < Size; i++) {
+                    OccupiedCells[i,0] = 0;
+                    OccupiedCells[i,1] = 0; 
+                }
+                Status = boatStatus.OK;
+                return true;
+            } else return false;
         }
 
         public void EncloseBoat(Field field) {
@@ -147,7 +152,7 @@ namespace morskoyBoy
                     field.EncloseCell(OccupiedCells[i,0],OccupiedCells[i,1]);
                 }
             }
-            catch(ArgumentOutOfRangeException) {  }             // добавить обработку исключения
+            catch(ArgumentOutOfRangeException e) { Console.WriteLine(e.Message); }             
         }
         public void EncloseSunkBoat(Field field) {
             try {    
@@ -155,7 +160,7 @@ namespace morskoyBoy
                     field.EncloseHittedCell(OccupiedCells[i,0],OccupiedCells[i,1]);
                 }
             }
-            catch(ArgumentOutOfRangeException) {  }             // добавить обработку исключения
+            catch(ArgumentOutOfRangeException e) { Console.WriteLine(e.Message); }             
         }
     
         public void setBoatDamaged(Field field) {   

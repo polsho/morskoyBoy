@@ -70,6 +70,15 @@ namespace morskoyBoy
             }
         }
 
+        public void clearField(){
+           for (int i = 0; i < cells.GetLength(0); i++) {
+                for (int j = 0; j < cells.GetLength(1); j++) {
+                    cells[i,j].StatusToEmpty();
+                    cells[i,j].settledBoat[0] = -1;
+                    cells[i,j].settledBoat[1] = -1;
+                }  
+            } 
+        }
 
         public cellStatus GetCellStatus(int num, int letter){
             return cells[num, letter].Status;

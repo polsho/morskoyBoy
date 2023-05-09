@@ -9,7 +9,7 @@ namespace morskoyBoy
         public class Stroke {
             public int num, letter;
             public cellStatus strokeResult;
-            public bool areNearbyCellsChecked {set; get;}  // добавить проверку в конструктор
+            public bool areNearbyCellsChecked {set; get;} 
 
             public int[]? HittedBoat { get; }
 
@@ -184,7 +184,7 @@ namespace morskoyBoy
             }
             else {
                 if (compStrokes.Count == 1) {
-                    int option = MyExtensions.rand.Next(0,listOfSets.Length);
+                    int option = MyExtensions.rand.Next(listOfSets.Length);
                     currentSetOfStrokes = listOfSets[option];
 
                 }

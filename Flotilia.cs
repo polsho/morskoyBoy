@@ -44,7 +44,7 @@ namespace morskoyBoy {
             }       
         }
 
-        public bool putAllBoatsRandomly(Field field) {                      // Добавить исключение бесконечного цикла
+        public bool putAllBoatsRandomly(Field field) {                     
             var randomPos = new boatPosition();
             string message; 
             int iterationsCount = 0;
@@ -52,8 +52,9 @@ namespace morskoyBoy {
                 for (int j = 0; j < Flot[f].Length; j++) 
                 {
                     if (iterationsCount > 100) {
-                        Console.WriteLine("РАНДОМНАЯ УСТАНОВКА КОРАБЛЕЙ ЗАСТРЯЛА");
-                        putAllBoatsRandomly(field);
+                        unputAllBoats();
+                        field.clearField();
+                        return putAllBoatsRandomly(field);
                     } else {
                         randomPos.setData(MyExtensions.rand.Next(0,10), MyExtensions.rand.Next(0,10), (boatDirection)MyExtensions.rand.Next(0,2));
                     if(!Flot[f][j].PutBoat(field, randomPos, ref counters[f], out message)) {
@@ -73,23 +74,22 @@ namespace morskoyBoy {
             string message;
             int iterationsCount = 0;
             int[][] limits = new int[][]{new int[]{0,6}, new int[]{5,10}, new int[]{0,10}}; 
-            int[] randomNum = limits[MyExtensions.rand.Next(0,3)];
+            int[] randomNum = limits[MyExtensions.rand.Next(3)];
             int[] randomLetter = (randomNum == limits[2]? limits[MyExtensions.rand.Next(0,2)]:limits[2]);
             int i = 0;
             for (; i < 3; i++) {
                 for (int j = 0; j < Flot[i].Length; j++) {
                     if (iterationsCount > 100) {
-                        Console.WriteLine("УСТАНОВКА КОРАБЛЕЙ КУЧКОЙ ЗАСТРЯЛА");
-                        putAllBoatsTight(field);
+                        throw new StackOverflowException();
                     } else {
-                    randomPos.setData(MyExtensions.rand.Next(randomNum[0],randomNum[1]), 
-                                      MyExtensions.rand.Next(randomLetter[0],randomLetter[1]), 
-                                      (boatDirection)MyExtensions.rand.Next(0,2));
-                    if(!Flot[i][j].PutBoat(field, randomPos, ref counters[i], out message)) {
-                        j--;
-                        iterationsCount++;
-                    }
-                    else Flot[i][j].setSettledBoat(field, i, j);
+                        randomPos.setData(MyExtensions.rand.Next(randomNum[0],randomNum[1]), 
+                                        MyExtensions.rand.Next(randomLetter[0],randomLetter[1]), 
+                                        (boatDirection)MyExtensions.rand.Next(0,2));
+                        if(!Flot[i][j].PutBoat(field, randomPos, ref counters[i], out message)) {
+                            j--;
+                            iterationsCount++;
+                        }
+                        else Flot[i][j].setSettledBoat(field, i, j);
                     }
                 }      
             }
@@ -115,19 +115,18 @@ namespace morskoyBoy {
             for (; i < numOfBoatTypes; i++) {
                 for (int j = 0; j < Flot[i].Length; j++) {
                     if (iterationsCount > 100) {
-                        Console.WriteLine("УСТАНОВКА КОРАБЛЕЙ ПО КРАЯМ ЗАСТРЯЛА");
-                        putAllBoatsAlongEdges(field);
+                        throw new StackOverflowException();
                     } else {
-                    int[] randomNum = limits[MyExtensions.rand.Next(0,3)];
-                    int[] randomLetter = (randomNum == limits[2]? limits[MyExtensions.rand.Next(0,2)]:limits[2]);
-                    randomPos.setData(MyExtensions.rand.Next(randomNum[0],randomNum[1]), 
-                                      MyExtensions.rand.Next(randomLetter[0],randomLetter[1]), 
-                                      (boatDirection)MyExtensions.rand.Next(0,2));
-                    if(!Flot[i][j].PutBoat(field, randomPos, ref counters[i], out message)) {
-                        j--;
-                        iterationsCount++;
-                    }
-                    else Flot[i][j].setSettledBoat(field, i, j);
+                        int[] randomNum = limits[MyExtensions.rand.Next(0,3)];
+                        int[] randomLetter = (randomNum == limits[2]? limits[MyExtensions.rand.Next(0,2)]:limits[2]);
+                        randomPos.setData(MyExtensions.rand.Next(randomNum[0],randomNum[1]), 
+                                        MyExtensions.rand.Next(randomLetter[0],randomLetter[1]), 
+                                        (boatDirection)MyExtensions.rand.Next(0,2));
+                        if(!Flot[i][j].PutBoat(field, randomPos, ref counters[i], out message)) {
+                            j--;
+                            iterationsCount++;
+                        }
+                        else Flot[i][j].setSettledBoat(field, i, j);
                     }
                 }      
             }
@@ -141,6 +140,17 @@ namespace morskoyBoy {
                 }      
             }
             return true; 
+        }
+
+        public void unputAllBoats() {
+            for (int i = 0; i < Flot.Length; i++) {
+                for (int j = 0; j < Flot[i].Length; j++) {
+                    Flot[i][j].UnputBoat();
+                }
+            }
+            for (int i = 0; i < counters.Length; i++) {
+                counters[i] = i + 1;
+            }
         }
 
         public string showBoatByStatus (int type, int indexNum, boatStatus status) {
