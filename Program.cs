@@ -5,7 +5,8 @@ namespace morskoyBoy {
         private static void Main(string[] args)
         {
             Console.Title = "МОРСКОЙ БОЙ";
-            ConsoleMenu.showTitle("■");
+            string[] elementsForTitle = {"■", "♠", "♣", "♦", "♥", "♫", "☻", "☼", "♂", "♀" };
+            ConsoleMenu.showTitle(elementsForTitle[MyExtensions.rand.Next(elementsForTitle.Length)]);
             byte flag = 1;
             byte numberOfGames = 0;
             while (flag == 1) {
