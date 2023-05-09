@@ -179,13 +179,6 @@ namespace morskoyBoy {
             }
         } 
 
-        public void PrintBoatsStatus() {            // переделать на возврат строки
-            for (int i = 0; i < Flot.Length; i++){
-                for (int j = 0; j < Flot[i].Length; j++) {
-                    Console.WriteLine(Flot[i][j].Status);
-                }
-            }
-        }
         public bool areAllBoatsSunk() {
             for (int i = 0; i < Flot.Length; i++){
                 for (int j = 0; j < Flot[i].Length; j++) {

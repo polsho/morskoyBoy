@@ -255,7 +255,7 @@ namespace morskoyBoy
                 }     
                 if (options == 1) {
                     Console.WriteLine();
-                    ComputerField.PrintField(16,27,ComputerFlotilia, false);
+                    ComputerField.PrintField(16,Console.CursorTop+2,ComputerFlotilia, false);
                     Console.WriteLine();
                 } 
                 else return;

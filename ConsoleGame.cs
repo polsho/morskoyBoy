@@ -20,9 +20,9 @@ namespace morskoyBoy{
 
         static public void getDataForBoatPosition(string name, int size, int index, out string coord, out string pos){
             if (name == "Линкор")
-                Console.Write($"\tВведите данные для установки корабля типа {name} ");
+                Console.Write($"\n\tВведите данные для установки корабля типа {name} ");
             else 
-                Console.Write($"\tВведите данные для установки {index+1}-го корабля типа {name} ");
+                Console.Write($"\n\tВведите данные для установки {index+1}-го корабля типа {name} ");
             if (size == 1) 
                 Console.WriteLine($"({size} ячейка).");
             else 
@@ -112,7 +112,11 @@ namespace morskoyBoy{
         public bool putAllGamerBoats(Field field, out string message) {
             Console.Clear();
             printFieldAndFlotilia(GamerField, GamerFlotilia, "ВАШЕ ПОЛЕ", "ВАША ФЛОТИЛИЯ");
-            message ="\tУстановите Ваши корабли на поле боя так, чтобы они не касались друг друга ни сторонами, ни углами.";
+            //message ="\tУстановите Ваши корабли на поле боя так, чтобы они не касались друг друга ни сторонами, ни углами.";
+            message = "";
+            Console.WriteLine("\n\tУстановите Ваши корабли на поле боя так, чтобы они не касались друг друга ни сторонами, ни углами.");
+            Console.WriteLine("\tСначала определите координаты первой ячейки, от которой корабль будет располагаться либо вправо, либо вниз.");
+            Console.WriteLine("\tДалее определите направление.");
             var posData = new boatPosition();
             string coord, pos;
 
@@ -120,7 +124,7 @@ namespace morskoyBoy{
                     for (int j = 0; j < GamerFlotilia.Flot[i].Length; j++) 
                     {
                         do {
-                            MyExtensions.WriteInGreen("\n" + message + "\n");
+                            MyExtensions.WriteInGreen("\n" + message);
                             do {
                                 getDataForBoatPosition(GamerFlotilia.Flot[i][j].Name, 
                                                     GamerFlotilia.Flot[i][j].Size,
