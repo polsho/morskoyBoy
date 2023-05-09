@@ -101,19 +101,20 @@ namespace morskoyBoy
         }
 
         public static byte endOfGame(ConsoleGame game) {
+            byte options = 0;
             Console.WriteLine("\n\tЧтобы посмотреть статистику игры, нажмите \"1\"");
+            while (options >= 0) {
             Console.WriteLine("\tЧтобы сыграть еще раз, нажмите \"2\"");
             Console.WriteLine("\tЧтобы выйти из игры, нажмите \"3\"");
-            byte options;
+            
             Console.Write("\t");
             if(Byte.TryParse(Console.ReadLine(), out options)) {
                 switch(options){
                     case 1: 
                         game.PrintGameStatistics(); 
-                        Console.WriteLine("\n\n\tНажмите любую клавишу для продолжения... ");
-                        Console.Write("\t");
+                        Console.Write("\n\tНажмите любую клавишу для продолжения... ");
                         Console.ReadKey();
-                        options = endOfGame(game); 
+                        Console.WriteLine();
                         break;
                     case 2: return 1;
                     case 3: return 0;
@@ -125,7 +126,9 @@ namespace morskoyBoy
             }
             else {
                 Console.WriteLine("\tНеизвестная команда, попробуйте еще раз.");
-                options = endOfGame(game);        
+                options = endOfGame(game);
+                break;        
+            }
             }
             return options;      
         }

@@ -245,13 +245,13 @@ namespace morskoyBoy
             printBothFields();
             if (GamerFlotilia.areAllBoatsSunk() && !ComputerFlotilia.areAllBoatsSunk()) {
                 MyExtensions.WriteInRed("\t\t\tВы проиграли"); 
-                Console.WriteLine("\n\t\t" + "Чтобы расскрыть поле противника, нажмите \"1\"");
-                Console.WriteLine("\t\t" + "Чтобы продолжить, нажмите \"2\"");
+                Console.WriteLine("\n\t" + "Чтобы расскрыть поле противника, нажмите \"1\"");
+                Console.WriteLine("\t" + "Чтобы продолжить, нажмите \"2\"");
                 byte options;
-                Console.Write("\t\t");
+                Console.Write("\t");
                 while((!Byte.TryParse(Console.ReadLine(), out options)) || (options != 1 && options != 2)) { 
-                    Console.WriteLine("\t\tНеизвестная команда, попробуйте еще раз.");
-                    Console.Write("\t\t");
+                    Console.WriteLine("\tНеизвестная команда, попробуйте еще раз.");
+                    Console.Write("\t");
                 }     
                 if (options == 1) {
                     Console.WriteLine();

@@ -13,7 +13,7 @@ namespace morskoyBoy {
                 Flot[i] = new Boat[i + 1];
                 counters[i] = i + 1;
             }  
-            for (int i = 0; i < Flot.Length; i++) {
+            for (int i = 0; i < Flot.GetLength(0); i++) {
                 for (int j = 0; j < Flot[i].Length; j++) {
                     switch(i) {
                         case 0: Flot[i][j] = new Battleship(); break;
