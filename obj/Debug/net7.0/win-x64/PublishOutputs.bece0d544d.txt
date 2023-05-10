@@ -1,2 +1,0 @@
-D:\PROGRAMMING\c#_morskoyBoy\morskoyBoy\bin\Debug\net7.0\win-x64\publish\morskoyBoy.pdb
-D:\PROGRAMMING\c#_morskoyBoy\morskoyBoy\bin\Debug\net7.0\win-x64\publish\morskoyBoy.exe
