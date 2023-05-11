@@ -205,9 +205,7 @@ namespace morskoyBoy{
             MyExtensions.WriteAt("Предыдущий удар: " 
                               + convertCoordToData(getPrevStroke(gamerStrokes).num,getPrevStroke(gamerStrokes).letter)
                               + " " + getPrevStroke(gamerStrokes).showStrokeResult(ComputerField,ComputerFlotilia), 55, 17);
-            
-            Console.WriteLine("\n\t   " + " Количество ударов: " + (compStrokes.Count-1) 
-                              + "\t\t\t" + " Количество ударов: " + (gamerStrokes.Count-1));                  
+                            
             Console.WriteLine("\n");
         } 
 
